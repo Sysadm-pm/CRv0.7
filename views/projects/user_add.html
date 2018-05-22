@@ -1,0 +1,45 @@
+<h3>Add tiket</h3><br/>
+<form method="post" action="">
+
+    <div class="form-group">
+        <label for="priority">Пріорітет</label>
+
+        <select name="priority" class="select2_demo_2 form-control"">
+        <option class="label-accent-low text-warning" value="1" selected="">low</option>
+        <option class="label-accent-middle-low text-warning" value="2">middle-low</option>
+        <option class="label-accent-middle text-warning" value="3">middle</option>
+        <option class="label-accent-hi text-warning" value="4">hi</option>
+        <option class="label-accent-critical text-warning" value="5">critical</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="test2" class="form-control"/>
+    </div>
+
+
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" id="content" class="form-control">test2test2test2test2</textarea>
+    </div>
+    <div class="form-group row">
+
+    <div class="form-group col-md-4">
+        <label for="est_time">EST TIME</label>
+        <input type="date" id="est_time" name="est_time" value="2017-06-01" class="form-control col-md-4"/>
+    </div>
+
+    <div class="form-group col-md-4 ">
+        <br>
+        <label for="visible">visible</label>
+        <input type="checkbox" name="visible" id="visible" checked="checked" />
+
+        <input type="submit" class="btn btn-success btn-lg btn-group-lg" />
+    </div>
+
+    </div>
+
+</form>
+<?php print_r($_POST)?>

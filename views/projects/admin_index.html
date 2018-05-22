@@ -1,0 +1,393 @@
+
+
+            <?php if ($_SESSION['avatar'] == 0) $avatar=0;
+                                            else $avatar = $_SESSION['avatar'].'/'.$_SESSION['id'];?>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="view-header">
+                    <div class="pull-right text-right" style="line-height: 14px">
+                        <small>App Pages<br>Basic<br> <span class="c-white">Мої тікети</span></small>
+                    </div>
+                    <div class="header-icon">
+                        <i class="pe page-header-icon pe-7s-box1 text-info"></i>
+                    </div>
+                    <div class="header-title">
+                        <h3>Мої тікети</h3>
+                        <small>
+                            Список тікетів створених користувачем
+                        </small>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+            <div class="panel panel-title">
+
+                <div class="panel-tools">
+                    <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                </div>
+                Мої тікети
+
+                <div class="panel-body1">
+            <!-- Project list -->
+                    <div id="" class="panel col-md-12">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="mainTableTiket" class="table table-vertical-align-middle">
+                                    <thead>
+                                    <tr >
+                                        <th style="width: 3%">
+                                            ID
+                                        </th>
+                                        <th style="width: 1%">
+                                            Status
+                                        </th>
+                                        <th style="width: 1%">
+                                            Priority
+                                        </th>
+                                        <th>
+                                            Project name
+                                        </th>
+                                        <th>
+                                            Створив
+                                        </th>
+                                        <th >
+                                            Progress
+                                        </th>
+                                        <th class="text-right">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+
+
+                                    <tbody>
+                                    <?php foreach($data['tiket'] as $tiket_data) { ?>
+                                    <tr class="<?=$tiket_data['status'] ?>">
+                                        <td>
+                                            <div class="text-center"><span class="label label-accent"><?=$tiket_data['id'] ?></span></div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center"><span class="label label-accent-<?=$tiket_data['status'] ?>"><?=$tiket_data['status'] ?></span></div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                            <span class="label label-accent-<?=$tiket_data['priority'] ?>"><?=$tiket_data['priority'] ?></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="panel collapsed panel-tiket">
+
+                                                <div class="panel-tools">
+                                                    <a class="panel-toggle"><i class="fa fa-chevron-up closed"></i></a>
+
+                                                </div>
+                                                <a href="/<?=Session::get('role')?>/tikets/edit/<?=$tiket_data['id']?>"><?=$tiket_data['title'] ?></a>
+
+                                                <div class="panel-body">
+                                                    <?=$tiket_data['content'] ?>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="small btn-group">  <i class="fa fa-clock-o c-white"></i>  EST time <i class="c-white"><?=substr($tiket_data['est_time'],0,10) ?></i></div>
+
+                                                <div class="small btn-group"><i class="fa fa-clock-o"></i> Created <?=$tiket_data['cr_time'] ?></div>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="panel collapsed panel-tiket">
+
+                                                <div class="panel-tools">
+                                                    <a class="panel-toggle"><i class="fa fa-chevron-up closed"></i></a>
+
+                                                </div>
+
+                                                <a href=""><img alt="image" class="img-rounded image-md" src="/img/avatar/<?=$avatar?>.jpg"><?=$tiket_data['creator_id'] ?></a>
+                                                <!--<a href=""><img alt="image" class="img-rounded image-md" src="images\a2.jpg"></a>
+                                                <a href=""><img alt="image" class="img-rounded image-md" src="images\a3.jpg"></a>-->
+
+                                                <div class="panel-body">
+                                                    <small>Відповідальні:</small>
+                                                    <?php
+                                                    $as = $data['ob']->getUserDep($tiket_data['id']);
+                                                    foreach($as as $users_dep) { ?>
+                                                        <div class="btn-group ">
+                                                            <div><small><code><?=$users_dep['uid']?>=><?=$users_dep['login']?></code></small><br></div>
+                                                        </div>
+                                                    <?php } ?>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </td>
+                                        <td>
+                                            <div class="progress m-b-none full progress-small">
+                                                <div style="width: 35%;background: lightseagreen" class="progress-bar progress-bar-warning"></div>
+                                            </div>
+                                            <small>35% compleated:</small>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group pull-right">
+                                                <a href="/<?=Session::get('role')?>/tikets/delete/<?=$tiket_data['id']?>" class="btn btn-default btn-xs"><i class="fa fa-folder"></i> Delite </a>
+                                                <a href="/<?=Session::get('role')?>/tikets/edit/<?=$tiket_data['id']?>" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                                <button class="btn btn-default btn-xs"><i class="fa fa-sticky-note"></i> Notes </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                    </tbody>
+
+                                    <h3><a href="/<?=Session::get('role')?>/tikets/add/" class="btn btn-default btn-group-xs"> <i class="fa fa-plus-square-o"></i> ADD </a></h3>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+            <!-- Project list -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>App Pages<br>Basic<br> <span class="c-white">Призначені тікети</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-cloud-upload"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Призначені тікети</h3>
+                            <small>
+                                List of all projects
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        <!-- Project list assigned to my -->
+            <div id="" class="panel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-vertical-align-middle">
+                            <thead>
+                            <tr >
+                                <th style="width: 3%">
+                                    ID
+                                </th>
+                                <th style="width: 1%">
+                                    Status
+                                </th>
+                                <th style="width: 1%">
+                                    Priority
+                                </th>
+                                <th>
+                                    Project name
+                                </th>
+                                <th>
+                                    Створив
+                                </th>
+                                <th >
+                                    Progress
+                                </th>
+                                <th class="text-right">
+                                    Actions
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <?php foreach($data['tiket_as'] as $tiket_data) { ?>
+
+                            <tbody>
+
+                            <tr class="<?=$tiket_data['status'] ?>">
+                                <td>
+                                    <span class="label label-accent"><?=$tiket_data['id'] ?></span>
+                                </td>
+                                <td>
+                                    <span class="label label-accent-<?=$tiket_data['status'] ?>"><?=$tiket_data['status'] ?></span>
+                                </td>
+                                <td>
+                                    <span class="label label-accent-<?=$tiket_data['priority'] ?>"><?=$tiket_data['priority'] ?></span>
+                                </td>
+                                <td>
+                                    <div class="panel collapsed panel-tiket">
+
+                                        <div class="panel-tools">
+                                            <a class="panel-toggle"><i class="fa fa-chevron-up closed"></i></a>
+
+                                        </div>
+                                        <a href="/<?=Session::get('role')?>/tikets/edit/<?=$tiket_data['id']?>"><?=$tiket_data['title'] ?></a>
+
+                                        <div class="panel-body">
+                                            <?=$tiket_data['content'] ?>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="small btn-group">  <i class="fa fa-clock-o c-white"></i>  EST time <i class="c-white"><?=substr($tiket_data['est_time'],0,10) ?></i></div>
+
+                                        <div class="small btn-group"><i class="fa fa-clock-o"></i> Created <?=$tiket_data['cr_time'] ?></div>
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="panel collapsed panel-tiket">
+
+                                        <div class="panel-tools">
+                                            <a class="panel-toggle"><i class="fa fa-chevron-up closed"></i></a>
+
+                                        </div>
+
+                                        <a href=""><img alt="image" class="img-rounded image-md" src="/img/avatar/<?=$avatar?>.jpg"><?=$tiket_data['creator_id'] ?></a>
+                                        <!--<a href=""><img alt="image" class="img-rounded image-md" src="images\a2.jpg"></a>
+                                        <a href=""><img alt="image" class="img-rounded image-md" src="images\a3.jpg"></a>-->
+
+                                        <div class="panel-body">
+                                            <small>Відповідальні:</small>
+                                            <?php
+                                                    $as = $data['ob']->getUserDep($tiket_data['id']);
+                                            foreach($as as $users_dep) { ?>
+                                            <div class="buttons-margin">
+                                                <div><small><code><?=$users_dep['uid']?>=><?=$users_dep['login']?></code></small><br></div>
+                                            </div>
+                                            <?php } ?>
+
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="progress m-b-none full progress-small">
+                                        <div style="width: 35%;background: lightseagreen" class="progress-bar progress-bar-warning"></div>
+                                    </div>
+                                    <small>35% compleated:</small>
+                                </td>
+                                <td>
+                                    <div class="btn-group pull-right">
+                                        <a href="/<?=Session::get('role')?>/tikets/delete/<?=$tiket_data['id']?>" class="btn btn-default btn-xs"><i class="fa fa-folder"></i> Delite </a>
+                                        <a href="/<?=Session::get('role')?>/tikets/edit/<?=$tiket_data['id']?>" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                        <button class="btn btn-default btn-xs"><i class="fa fa-sticky-note"></i> Notes </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                            <?php } ?>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <!-- Project list assigned to my -->
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>App Pages<br>Basic<br> <span class="c-white">Видалені тікети</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-trash text-danger"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Видалені тікети</h3>
+                            <small>
+                                Список видалених проектів
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <!-- Project list delited -->
+        <div class="row">
+            <div class="col-md-12">
+                        <div class="panel collapsed panel-tiket">
+
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up closed"></i></a>
+
+                            </div>
+                            Видалені тікети
+
+                            <div class="panel-body">
+
+
+
+
+                                <table id="tableTiketDel" class="table table-vertical-align-middle">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th>
+                                            Project name
+                                        </th>
+                                        <th>
+                                            Participate
+                                        </th>
+                                        <th>
+                                            Progress
+                                        </th>
+                                        <th class="text-right">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+
+
+                                    <tbody class="table-condensed">
+                                        <?php foreach($data['tiket_del'] as $tiket_del_data) { ?>
+                                    <tr>
+                                        <td>
+                                            <span class="label <?php ?>"><?=$tiket_del_data['status'] ?></span>
+                                        </td>
+                                        <td>
+                                            <a href="#"><?=$tiket_del_data['title'] ?></a>
+                                            <div class="small"><i class="fa fa-clock-o"></i> Created <?=$tiket_del_data['cr_time'] ?></div>
+                                        </td>
+                                        <td>
+                                            <a href=""><img alt="image" class="img-rounded image-md" src="/img/avatar/<?=$avatar?>.jpg"></a>
+                                            <!--<a href=""><img alt="image" class="img-rounded image-md" src="images\a2.jpg"></a>
+                                            <a href=""><img alt="image" class="img-rounded image-md" src="images\a3.jpg"></a>-->
+                                        </td>
+                                        <td>
+                                            <div class="progress m-b-none full progress-small">
+                                                <div style="width: 35%;background: lightseagreen" class="progress-bar progress-bar-warning"></div>
+                                            </div>
+                                            <small>35% compleated:</small>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group pull-right">
+                                                <!--<a href="/<?=Session::get('role')?>/tikets/delete/<?=$tiket_del_data['id']?>" class="btn btn-default btn-xs"><i class="fa fa-folder"></i> Delite </a>-->
+                                                <a href="/<?=Session::get('role')?>/tikets/delited/<?=$tiket_del_data['id']?>" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> View </a>
+                                                <a href="/<?=Session::get('role')?>/tikets/recover/<?=$tiket_del_data['id']?>" class="btn btn-default btn-xs"><i class="fa fa-sticky-note"></i> Recover </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        <?php } ?>
+                                </tbody>
+
+                        </table>
+                            </div>
+                    </div>
+            </div>
+        </div>
+            <!-- Project list delited -->
+

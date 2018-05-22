@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-filled">
+            <div class="panel-body">
+
+                    <h3>Edit page</h3><br/>
+                    <form method="post" action="">
+                        <input type="hidden" name="id" value="<?=$data['task']['task_id']?>"/>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" name="title" value="<?=$data['task']['task_title']?>" class="form-control"/>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="tid">tid</label>
+                                <input type="text" id="tid" name="tid" value="<?=$data['task']['tid']?>" class="form-control"/>
+                            </div>
+
+                            <div class="form-group col-md-4 text-center">
+                                <label for="st">Status</label>
+                                <input type="checkbox" name="st" id="st" <?php if ($data['task']['st']) { ?> checked="checked" <?php } ?> /><br>
+                                <i class="text-info">Task ID: </i><code><i><?=$data['task']['task_id']?></i></code>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="content">Content</label>
+                                    <textarea name="content" id="content" class="form-control"><?=$data['task']['task_content']?></textarea>
+                        </div>
+
+                        <input type="submit" class="btn btn-success" />
+                    </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            <?php print_r($data['task']); ?>

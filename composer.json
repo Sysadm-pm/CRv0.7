@@ -1,0 +1,13 @@
+{
+    "name": "pmalyovanyi/s2",
+    "description": "maliyovanyi crm system",
+    "authors": [
+        {
+            "name": "Pavlo Maliovanyi",
+            "email": "sysadm@fex.net"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.0"
+    }
+}

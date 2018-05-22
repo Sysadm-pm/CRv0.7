@@ -1,0 +1,155 @@
+<h3 xmlns="http://www.w3.org/1999/html">Edit tiket</h3><br/>
+
+<?php if(Session::hasFlash() ){ ?>
+<div class="alert alert-warning">
+    <?php Session::flash(); ?> <i>Hello</i>
+</div>
+<?php } ?>
+
+<div class="row">
+    <div class="col-md-12">
+    <div class="panel panel-filled">
+        <div class="panel-heading">
+        </div>
+
+        <div class="panel-body">
+                <form method="post" action="" >
+
+                    <div class="panel-body"><text class="text-center text-capitalize"><b><?=$data['tiket']['id']?></b></text></div>
+
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <input type="text" id="status" name="status" value="<?=$data['tiket']['status']?>" class="form-control"/>
+
+                                </div>
+
+
+                            <div class="form-group row">
+                                <div class="form-group col-md-4">
+                                    <label for="priority">Пріорітет</label>
+
+                                    <select name="priority" class="select2_demo_2 form-control"">
+                                    <option class="label-accent-low text-warning" value="1"<?php if($data['tiket']['priority'] == 'low'){ ?>selected=""<?php }?>>low</option>
+                                    <option class="label-accent-middle-low text-warning" value="2" <?php if($data['tiket']['priority'] == 'middle-low'){ ?>selected=""<?php }?>>middle-low</option>
+                                    <option class="label-accent-middle text-warning" value="3" <?php if($data['tiket']['priority'] == 'middle'){ ?>selected=""<?php }?>>middle</option>
+                                    <option class="label-accent-hi text-warning" value="4" <?php if($data['tiket']['priority'] == 'hi'){ ?>selected=""<?php }?>>hi</option>
+                                    <option class="label-accent-critical text-warning" value="5" <?php if($data['tiket']['priority'] == 'critical'){ ?>selected=""<?php }?>>critical</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="est_time">EST TIME</label>
+                                    <input type="date" id="est_time" name="est_time" required pattern="" value="<?=substr($data['tiket']['est_time'],0,10) ?>" class="form-control"/>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="title">Title</label>
+                                    <input type="text" id="title" name="title" value="<?=$data['tiket']['title']?>" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group panel-body">
+                                <label for="content">Content</label>
+                                <textarea name="content" id="content" class="summernote form-control" style="height: 300px;"><?=$data['tiket']['content']?> </textarea>
+                            </div>
+
+                                    <?php foreach($data['task'] as $data_task) { ?>
+                            <blockquote>
+                                <div class="row bs-example">
+                                    <del>
+                                        <div class="col-md-1 text-center">
+                                            <h4><i class="pe-7s-next-2"></i></h4>
+                                            <i class="text-danger"><?=$data_task['task_id']?></i>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <label for="title" class="text-center">Title</label></div>
+                                            <i><?=$data_task['task_title']?></i>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <label for="task_content">Content</label><br>
+                                            <i name="content" id="task_content" class="text-center c-accent"><?=$data_task['task_content']?> </i>
+                                        </div>
+
+                                        <div class="btn-group pull-right">
+                                            <a href="/<?=Session::get('role')?>/tikets/deltask/<?=$data_task['task_id']?>/<?=$data['tiket']['id']?>" class="btn btn-default btn-xs "><i class="pe pe-7s-trash text-danger"></i> Delite </a>
+                                            <a href="/<?=Session::get('role')?>/tikets/edittask/<?=$data_task['task_id']?>" class="btn btn-default btn-xs"><i class="fa fa-pencil text-info"></i> Edit </a>
+                                        </div>
+
+                                    </del>
+                                </div>
+                            </blockquote>
+                                    <?php } ?>
+
+                <div class="row bs-example panel-body">
+
+<!--
+                            <div class="form-group col-md-4">
+                                <label for="extractor">Виконавець</label>
+                                <select name="extractor" class="select2_demo_2 form-control"">
+                                <option value="" >Оберіть виконавця...</option>
+                                <?php foreach($data['users'] as $users_data) { ?>
+                                <option value="<?=$users_data['id']?>"><?=$users_data['login'] ?></option>
+                                <?php } ?>
+                                </select>
+                            </div>
+-->
+
+                    <div class="btn-group col-md-4">
+
+                        <div class="list-group text-center">
+                            <label for="visible">Visible</label>
+                            <input type="checkbox" name="visible" id="visible" <?php if ($data['tiket']['visible'] ) { ?>checked="checked"<?php } ?> />
+                        </div>
+
+                        <div class="btn-group pull-left panel-body text-center">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Виконавець <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <?php foreach($data['users'] as $users_data) { ?>
+                                    <li><a href="/<?=Session::get('role')?>/tikets/addext/<?=$users_data['id']?>/<?=$data['tiket']['id']?>"><?=$users_data['login'] ?></a></li>
+                                    <?php } ?>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                        </div>
+
+                    </div>
+                    <div class="btn-group col-md-4">
+                        <div class="panel-body ">
+                            <?php foreach($data['users_dep'] as $users_dep) { ?>
+                            <div class="btn-group ">
+                                <div><code><?=$users_dep['uid']?> ==> <?=$users_dep['login']?> <a href="/<?=Session::get('role')?>/tikets/deldep/<?=$users_dep['uid']?>/<?=$users_dep['tid']?>" class="hover" ><small class="btn btn-xs btn-rounded btn-danger">x</small></a></code><br></div>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="btn-group pull-right panel-body">
+                        <a href="/<?=Session::get('role')?>/tikets/addtask/<?=$data['tiket']['id']?>" class="btn-xs"><h3><i class="fa fa-plus-square-o fa-border text-info"></i> </h3></a>
+                    </div>
+
+                </div>
+
+                    <div class="btn-group pull-right panel-body">
+                            <a class="btn btn-info" href="/<?=Session::get('role')?>/tikets">Назад</a>
+                            <input type="submit" class="btn btn-success" value="Сохранить" />
+                    </div>
+
+                </form>
+
+
+                <?php //print_r($data['task'])?>
+
+                <?php //print_r($data['tiket'].'tiket')?>
+
+                <?php //print_r($data)?>
+
+        </div>
+    </div>
+</div>

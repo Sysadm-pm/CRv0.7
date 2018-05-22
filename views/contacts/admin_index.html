@@ -1,0 +1,23 @@
+<h3>Messages</h3><br/>
+<table class="table table-hover table-striped" style="width: 100%;">
+    <thead>
+    <tr>
+        <td style="width: 5%;"><b>#</b></td>
+        <td style="width: 10%;"><b>Name</b></td>
+        <td style="width: 15%;"><b>Email</b></td>
+        <td style="width: 10%;"><b>CREATE TIME</b></td>
+        <td style="width: 60%;"><b>Messages</b></td>
+    </tr>
+    </thead>
+    <?php foreach($data as $item) { ?>
+    <tbody>
+    <tr>
+        <td><?=$item['id'] ?></td>
+        <td><?=$item['name'] ?></td>
+        <td><?=$item['email'] ?></td>
+        <td><?=$item['cr_time'] ?></td>
+        <td><?=$item['messages'] ?></td>
+    </tr>
+    </tbody>
+    <?php } ?>
+</table>

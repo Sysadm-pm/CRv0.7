@@ -1,0 +1,38 @@
+<h3>Users</h3><br/>
+<table class="table table-hover table-striped" style="">
+    <thead>
+    <tr>
+        <td><b>ID</b></td>
+        <td><b>LOGIN</b></td>
+        <td><b>EMAIL</b></td>
+        <td><b>ROLE</b></td>
+        <td><b>MANAGER ID</b></td>
+        <td><b>CREATE TIME</b></td>
+        <td><b>IS ACTIVE</b></td>
+        <td align="right"> ACTION </td>
+    </tr>
+    </thead>
+    <?php foreach($data['users'] as $users_data) { ?>
+    <tbody>
+    <tr>
+        <td><b><?=$users_data['id'] ?></b></td>
+        <td><b><?=$users_data['login'] ?></b></td>
+        <td><b><?=$users_data['email'] ?></b></td>
+        <td><b><?=$users_data['role'] ?></b></td>
+        <td><b><?=$users_data['manager_id'] ?></b></td>
+        <td><b><?=$users_data['cr_time'] ?></b></td>
+        <td><b><?=$users_data['is_active'] ?></b></td>
+        <td align="right">
+            <a href="/admin/users/viewuser/<?=$users_data['login']?>"><button class="btn btn-sm btn-info">i</button></a>
+            <a href="/admin/users/edit/<?=$users_data['id']?>"><button class="btn btn-sm btn-primary">EDIT</button></a>
+            <a href="/admin/users/delete/<?=$users_data['id']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">DELETE</button></a>
+        </td>
+    </tr>
+    </tbody>
+    <?php } ?>
+</table>
+<div>
+    <a href="/admin/users/add/"><button class="btn btn-sm btn-success">New User</button></a>
+</div>
+
+

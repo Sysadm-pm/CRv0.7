@@ -1,0 +1,141 @@
+
+<div class="panel-body">
+    <div class="row">
+        <div class="panel col-lg-12">
+            <div class="view-header">
+                <div class="pull-right text-right" style="line-height: 14px">
+                    <small>
+                        <span class="c-accent">Базові данні:</span> </small>
+
+                    <br><small>USER ID: </small>
+                    <div class="pull-right text-right">
+                        <code>
+                            <span class="text-right"></span>
+                        </code>
+                    </div>
+
+                    <br><small>CREATE TIME: </small>
+                    <div class="pull-right text-right">
+                        <code>
+                            <span class="text-right"><?php //echo DateTime::createFromFormat('Y-m-d H:i:s',$data['users']['cr_time'])->format('d-M(m)-Y  H:i');?></span>
+
+                        </code>
+                    </div>
+
+                    <br><small>YOU ROLE IS: </small>
+                    <div class="pull-right text-right">
+                        <code>
+                            <span class="text-right"> <?=$data['users']['role']?></span>
+                        </code>
+                    </div>
+
+                </div>
+                <div class="header-icon">
+                    <i class="pe page-header-icon pe-7s-note2"></i>
+                </div>
+                <div class="header-title">
+                    <h3>Форма переносу даних користувача з домену: "<span class="c-accent"><?=$data['users']['login']?></span>"</h3>
+                    <small>
+                        Форма для внесення змін у параметри користувача.
+                    </small>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+
+
+
+    <div class="row">
+
+        <div class="panel-body">
+
+
+
+            <div class="panel panel-filled">
+                <div class="panel-body">
+                    <form class=".col-xs-12 .col-md-8" method="post" action="" enctype="multipart/form-data">
+
+                        <div class="row show-grid">
+
+                            <div class="form-group col-md-4 align-center">
+                                <h4><i class="pe-7s-door-lock c-accent "></i></h4>
+
+                                <?php
+                                                if ($_SESSION['avatar'] == 0) $avatar=0;
+                                                else $avatar = $_SESSION['avatar'].'/'.$_SESSION['id'];
+                                                ?>
+
+                                <img class="form-group center-block" src="/img/avatar/<?=$avatar?>.jpg"  alt="Avatar!" align="">
+
+                                <div >
+                                    <label class="btn btn-accent center-block" for="file">
+                                        <input type="file" id="file" name="avatar" style="display: none" onchange="$('#avatar').html($(this).val());" class="form-control"/>
+                                        <span id="avatar">Upload file</span></label>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <div class="form-group ">
+                                    <label for="login">LOGIN</label>
+                                    <input type="text" id="login" name="login" value="<?=$data['samaccountname']['0']?>" class="form-control" readonly/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">EMAIL</label>
+                                    <input type="text" id="email" name="email" value="<?=$data['mail']['0']?>" class="form-control"readonly/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">PASSWORD</label>
+                                    <input name="password" id="password" placeholder="******" class="form-control" readonly/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Мобільний телефон:</label>
+                                    <input type="tel" name="phone" id="phone" value="<?=$data['mobile']['0']?>" class="form-control" data-inputmask="'mask': '38(099)-999-99-99'" required/>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <div class="form-group ">
+                                    <label for="fname">Ім'я</label>
+                                    <input type="text" id="fname" name="fname" value="<?=$data['givenname']['0']?>" class="form-control" readonly/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lname">Прізвище</label>
+                                    <input  type="text" id="lname" name="lname" value="<?=$data['sn']['0']?>" class="form-control" readonly/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sname">Ім'я побатькові:</label>
+                                    <input type="text" name="sname" id="sname" value="" class="form-control" required/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="int_phone">Внутрішній телефон:</label>
+                                    <input type="text" name="int_phone" id="int_phone" value="<?=$data['telephonenumber']['0']?>" class="form-control" data-inputmask="'mask': '10-99'" required/>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="row panel-body list-inline">
+                            <div><a class="col-xs-1 btn btn-w-sm btn-primary" href=""><span class="fa fa-backward"></span> Назад</a></div>
+                            <div class="pull-right"><input type="submit" class="btn btn-success" /> </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <?php //print_r (App::getRouter()->getAction());?>
+</div>
+

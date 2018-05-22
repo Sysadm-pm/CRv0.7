@@ -1,0 +1,118 @@
+<?php
+//sleep(1);
+//header("Content-type: text/plain; charset=windows-1251");
+//header("Cache-Control: no-store, no-cache, must-revalidate");
+//header("Cache-Control: post-check=0, pre-check=0", false);
+?>
+<h3>Edit tiket</h3><br/>
+
+
+<?=Session::flash()?><?=Session::unflash()?>
+<?php //var_dump($_SESSION);?>
+
+<?php //if($this->data['tiket']['creator_id'] == Session::get('id')){ ?>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-filled">
+			<div class="panel-heading">
+			</div>
+
+			<div class="panel-body">
+				<form method="post" action="" >
+
+					<div class="panel-body"><text class="text-center text-capitalize"><b><?=$data['tiket']['id']?></b></text></div>
+
+					<div class="panel-body">
+						<label for="parentTid">Головний</label>
+						<select name="parentTid" class="selectParent form-control" style="width: 100%">
+
+							<?php  foreach($data['allTikets'] as $tik) {?>
+							<option>
+							<option name="parentTid" value="<?=$tik['id']?>" <?php if($tik['id'] == $data['tiket']['parentTid']){ echo 'selected=""';}else{?><?php } ?> >#<?=$tik['id']?> - <?=$tik['title']?>
+							<?php } ?>
+						</select>
+					</div>
+
+					<div class="form-group row">
+
+						<div class="form-group col-md-6">
+							<label for="title" class="c-accent">Назва</label>
+							<input type="text" id="title" name="title" maxlength="100" placeholder="Введіть в цьому полі назву тікету." class="form-control"/>
+						</div>
+
+						<div class="form-group col-md-2">
+							<label for="priority" class="c-accent">Пріорітет</label>
+
+							<select name="priority" class="select2_demo_2 form-control"">
+							<option class="label-accent-low text-warning" value="1"<?php if($data['tiket']['priority'] == 'low'){ ?>selected=""<?php }?>>low</option>
+							<option class="label-accent-middle-low text-warning" value="2" <?php if($data['tiket']['priority'] == 'middle-low'){ ?>selected=""<?php }?>>middle-low</option>
+							<option class="label-accent-middle text-warning" value="3" <?php if($data['tiket']['priority'] == 'middle'){ ?>selected=""<?php }?>>middle</option>
+							<option class="label-accent-hi text-warning" value="4" <?php if($data['tiket']['priority'] == 'hi'){ ?>selected=""<?php }?>>hi</option>
+							<option class="label-accent-critical text-warning" value="5" <?php if($data['tiket']['priority'] == 'critical'){ ?>selected=""<?php }?>>critical</option>
+							</select>
+						</div>
+
+						<div class="form-group col-md-2">
+							<label for="status" class="c-accent">Статус</label>
+
+							<select name="status" class="select2_demo_2 form-control">
+								<option class="label-accent-new" value="1" selected="" >new</option>
+								<?php if ($data['tiket']['status'] == 'progress'){?><option class="label-accent-progress text-warning" value="2" <?php if($data['tiket']['status'] == 'progress'){ ?>selected=""<?php }?>>progress</option><?php }?>
+								<option class="label-accent-open text-warning" value="3" >open</option>
+								<?php if ($data['toDel'] == 1 or $data['tiket']['status'] == 'closed'){?><option class="label-accent-closed text-warning" value="4" <?php if($data['tiket']['status'] == 'closed'){ ?>selected=""<?php }?>>closed</option><?php }?>
+								<?php if ($data['tiket']['status'] == 'approved'){?><option class="label-accent-approved text-warning" value="5" <?php if($data['tiket']['status'] == 'approved'){ ?>selected=""<?php }?>>approved</option><?php }?>
+								<?php if ($data['tiket']['status'] == 'closed' or $data['tiket']['status'] == 'expired' or $data['tiket']['status'] == 'reopen'){?><option class="label-accent-reopen text-warning" value="6" <?php if($data['tiket']['status'] == 'reopen'){ ?>selected=""<?php }?>>reopen</option><?php }?>
+								<?php if ($data['tiket']['status'] == 'expired'){?><option class="label-accent-expired text-warning" value="7" <?php if($data['tiket']['status'] == 'expired'){ ?>selected=""<?php }?>>expired</option><?php }?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-2">
+							<label for="est_time" class="c-accent">EST TIME</label>
+							<input type="date" id="est_time" name="est_time" required pattern="" value="<?=substr($data['tiket']['est_time'],0,10) ?>" class="form-control"/>
+						</div>
+
+
+					</div>
+
+					<div class="form-group panel-body col-md-pull-12">
+						<label for="content" class="c-accent">Зміст</label>
+						<textarea name="content" id="content" class="summernote form-control" placeholder="Введіть в цьому полі повний опис тікету." style="height: 300px;"><?=$data['tiket']['content']?> </textarea>
+					</div>
+
+					<div class="row bs-example panel-body">
+
+						<div class="btn-group col-md-4 text-center"></div>
+						<div class="btn-group col-md-4 text-center">
+
+
+							<div class="text-center">
+								<label for="users[]">Відповідальні:</label>
+								<select name="users[]" class="select2_demo_3 form-control" multiple="multiple" style="width: 100%">
+
+									<?php  foreach($data['users'] as $users_data) {
+                                            ?>
+									<option name="users[]" value="<?=$users_data['id']?>"> <?=$users_data['shortName']?>
+									<?php } ?>
+								</select>
+							</div>
+							<br>
+
+							<?php // var_dump($data['users']);?>
+
+						</div>
+
+					</div>
+
+					<div class="btn-group pull-right panel-body">
+						<a class="btn btn-info" href="/<?=Session::get('role')?>/tikets">Назад</a>
+						<input type="submit" class="btn btn-success" value="Сохранить" />
+					</div>
+
+				</form>
+
+
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,16 @@
+<?php if(Session::hasFlash() ) {?>
+<div class="alert alert-primary" role="alert">
+    <?php Session::flash(); ?>
+</div>
+<?php } ?>
+
+<h3>Contact Us:</h3>
+<form class="form" action="" method="post">
+    <input type="text" class="form-control" name="name" placeholder="Ваше ім'я"></br>
+    <input type="text" class="form-control" name="email" placeholder="Ваш Email"></br>
+    <textarea name="message" class="form-control" placeholder="Ваше повідомлення."></textarea></br>
+    <button class="homerDemo2 btn btn-success btn-block" type="submit">Надіслати</button>
+</form>
+
+
+

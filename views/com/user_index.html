@@ -1,0 +1,167 @@
+<h3><b>Comments for</b></h3>
+
+<div id="CommentForm">
+    <form action="" method="POST" name="CommentFormSend">
+        <div class="header">
+            <div><h1>Добавить комментарий</h1></div>
+            <div><a href="#" title="Закрыть окно"><img src="imgs/close/1.png" border="0" /></a></div>
+        </div>
+        <br />
+        <br />
+
+        <div class="field">
+            <input name="commentUser" id="commentUser" value="Имя" onfocus="if(this.value == "" || this.value == "Имя"){this.value = ""}" onblur="if(this.value == ""){this.value = "Имя"}" />
+            <input name="commentEmail" id="commentEmail" value="E-mail" onfocus="if(this.value == "" || this.value == "E-mail"){this.value = ""}" onblur="if(this.value == ""){this.value = "E-mail"}" />
+            <br />
+            <br />
+            <textarea name="commentMessage" id="commentMessage"></textarea>
+        </div>
+        <br />
+
+        <div class="">
+            <div>
+                <br />
+            </div>
+            <div>
+                <br />
+                <button onclick="return false;">Добавить</button>
+            </div>
+        </div>
+        <input type="hidden" name="CommentParent" id="CommentParent" value="0">
+        <?php
+  //Прошивка формы сессией
+  $_SESSION["unfmC"]=md5("Comment".date("l dS of F Y h:I:s A"));
+?>
+        <input type="hidden" name="CommentSession" value="<?php print $_SESSION["unfmC"];?>">
+    </form>
+</div>
+
+<br/>
+
+<div class="">
+    <?php
+
+    $commetMAX=10;
+    $counter=-1;
+    $CommentID=array();
+    $CommentID[0]=0;
+
+    ?>
+    <div CLASS="form-group panel-body col-md-pull-12" id="CommentView">
+        <?php
+
+        WHILE ($counter<=$commetMAX){
+            $counter++;
+            //Запрос комментариев из БАЗЫ
+            $commentInfo=array();
+            $commentInfo=getComments($CommentID, $_SERVER["HTTP_HOST"], $_SERVER["REQUEST_URI"]);
+
+            //Если комментариев для вывода на страницу нет, то выходить из цикла
+            if (count($commentInfo)==0){break;}
+
+            $CommentID=array();
+            for ($i=0;$i<count($commentInfo);$i++){
+                //В массив $CommentID помещаются `ID` комментариев выводимых на страницу
+                $CommentID[$i]=$commentInfo[$i]["id"];
+                ?>
+
+        <div class="panel-body" id="CommentView_Parent<?php print $commentInfo[$i]["id"];?>">
+        <!--Каждый следующий уровень вложенности вдвигается на 20px вправо-->
+        <div style="padding-left:<?php print (20*$counter)?>px;">
+            <div class="Message">
+
+                <?php
+                            print $commentInfo[$i]["message"];
+                            ?>
+
+            </div>
+            <div class="UserInfo" style="background: #0d74b1;color: #1d1f24">
+                <div>
+                    <img src="/img/0.jpg" border="0" />
+                </div>
+
+                <div class="Username"style="background: #27b122;color: #1d1f24">
+                    <?php
+                                print "<b>{$commentInfo[$i]["user"]}</b><br />{$commentInfo[$i]["date"]}";
+                    ?>
+
+                </div>
+
+
+                <div>
+
+                    <br />
+                    <a href="#" title="Ответить на комментарий" onclick="CommentView_FormView("<?php print $commentInfo[$i]["id"];?>");return false;">Ответить</a>
+                </div>
+            </div>
+
+
+            <!--Контейнер для вставки в него формы добавления комментариев при клике на ссылку "Ответить"-->
+            <div id="CommentView_Form<?php print $commentInfo[$i]["id"];?>" style="padding-top:5px;clear:left;">
+
+        </div>
+
+
+    </div>
+
+
+
+    <!--Контейнер для вставки в него вложенных (дочерних) комментариев-->
+    <div id="CommentView_Child<?php print $commentInfo[$i]["id"];?>"></div>
+</div>
+<?php
+                //JAVA SCRIPT функция переносит вложенный комментарий его родителю
+                if ($counter<>0)
+{?>
+<script type="text/javascript">CommentView_TeleportChild(<?=$commentInfo[$i]["idparent"]?>,<?=$commentInfo[$i]["id"]?>);</script>
+<?php
+//echo '<script type="text/javascript">CommentView_TeleportChild(.'$commentInfo[$i]["idparent"]'.,.'$commentInfo[$i]["id"]'.);</script>';
+}
+}
+}
+?>
+
+
+<br />
+<div>
+    <a href="#" onclick="CommentView_FormView("0");return false;">Добавить комментарий</a>
+</div>
+<!--Контейнер для вставки в него формы добавления комментариев при клике на ссылку "Добавить комментарий"-->
+<div id="CommentView_Form0">
+    <div id="CommentForm">
+                <form action="" method="POST" name="CommentFormSend">
+                <div class="header">
+                <div><h1>Добавить комментарий</h1></div>
+                    <div><a href="#" title="Закрыть окно"><img src="imgs/close/1.png" border="0" /></a></div>
+                </div>
+                    <br />
+                    <br />
+
+                <div class="field">
+                    <input name="commentUser" id="commentUser" value="Имя" onfocus="if(this.value == "" || this.value == "Имя"){this.value = ""}" onblur="if(this.value == ""){this.value = "Имя"}" />
+                    <input name="commentEmail" id="commentEmail" value="E-mail" onfocus="if(this.value == "" || this.value == "E-mail"){this.value = ""}" onblur="if(this.value == ""){this.value = "E-mail"}" />
+                    <br />
+                    <br />
+                    <textarea name="commentMessage" id="commentMessage"></textarea>
+                </div>
+                  <br />
+
+                <div class="">
+                <div>
+                <br />
+                </div>
+                <div>
+                <br />
+                <button onclick="return false;">Добавить</button>
+                </div>
+                </div>
+                <input type="hidden" name="CommentParent" id="CommentParent" value="0">
+
+            <input type="hidden" name="CommentSession" value="">
+            </form>
+</div>
+
+    </div>
+</div>
+
+</div>

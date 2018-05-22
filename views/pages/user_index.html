@@ -1,0 +1,24 @@
+<h3>Pages</h3><br/>
+<table class="table table-hover table-striped" style="width: 500px;">
+    <thead>
+    <tr>
+        <td><b>NAME</b></td>
+        <td align="right"> ACTION </td>
+    </tr>
+    </thead>
+    <?php foreach($data['pages'] as $page_data) { ?>
+    <tbody>
+        <tr>
+            <td><b><?=$page_data['title'] ?></b></td>
+            <td align="right">
+                <a href="/<?=Session::get('role')?>/pages/edit/<?=$page_data['id']?>"><button class="btn btn-sm btn-primary">edit</button></a>
+                <a href="/<?=Session::get('role')?>/pages/delete/<?=$page_data['id']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
+            </td>
+        </tr>
+    </tbody>
+<?php } ?>
+</table>
+<br/>
+<div>
+    <a href="/<?=Session::get('role')?>/pages/add/"><button class="btn btn-sm btn-success">New page</button></a>
+</div>

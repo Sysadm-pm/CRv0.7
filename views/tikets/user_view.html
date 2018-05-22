@@ -1,0 +1,303 @@
+<?php
+//sleep(1);
+//header("Content-type: text/plain; charset=windows-1251");
+//header("Cache-Control: no-store, no-cache, must-revalidate");
+//header("Cache-Control: post-check=0, pre-check=0", false);
+?>
+<div class="panel-body"><h3>Перегляд завдання</h3></div>
+
+
+<?=Session::flash()?><?=Session::unflash()?>
+<?php //var_dump($_SESSION);?>
+
+<?php //if($data['tiket']['creator_id'] == Session::get('id') or $data['assTo'] == '1' ){ ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-filled">
+            <div class="panel-heading">
+            </div>
+
+            <div class="panel-body">
+                <form method="post" action="" >
+
+                    <div class="panel-body"><text class="text-center text-capitalize"><b><?=$data['tiket']['id']?></b></text></div>
+
+                    <div class="">
+                        <label for="parentTid">Головний</label>
+                        <select name="parentTid" class="selectParent form-control" style="width: 100%">
+
+                            <?php  foreach($data['allTikets'] as $tik) {?>
+                            <option>
+                            <option name="parentTid" value="<?=$tik['id']?>" <?php if($tik['id'] == $data['tiket']['parentTid']){ echo 'selected=""';}else{?><?php } ?> >#<?=$tik['id']?> - <?=$tik['title']?>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="form-group col-md-6">
+                            <label for="title">Назва</label>
+                            <input type="text" id="title" name="title" maxlength="100" value="<?=$data['tiket']['title']?>" class="form-control" disabled/>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="priority">Пріорітет</label>
+
+                            <select name="priority" class="select2_demo_2 form-control" disabled>
+                            <option class="label-accent-low text-warning" value="1"<?php if($data['tiket']['priority'] == 'low'){ ?>selected=""<?php }?>>low</option>
+                            <option class="label-accent-middle-low text-warning" value="2" <?php if($data['tiket']['priority'] == 'middle-low'){ ?>selected=""<?php }?>>middle-low</option>
+                            <option class="label-accent-middle text-warning" value="3" <?php if($data['tiket']['priority'] == 'middle'){ ?>selected=""<?php }?>>middle</option>
+                            <option class="label-accent-hi text-warning" value="4" <?php if($data['tiket']['priority'] == 'hi'){ ?>selected=""<?php }?>>hi</option>
+                            <option class="label-accent-critical text-warning" value="5" <?php if($data['tiket']['priority'] == 'critical'){ ?>selected=""<?php }?>>critical</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="status">Статус</label>
+
+                            <select name="status" class="select2_demo_2 form-control" >
+                                <?php if ($data['tiket']['status'] == 'new'){?><option class="label-accent-new" value="1"<?php if($data['tiket']['status'] == 'new'){ ?>selected=""<?php }?>>new</option><?php }?>
+                                <?php if ($data['tiket']['status'] == 'progress'){?><option class="label-accent-progress text-warning" value="2" <?php if($data['tiket']['status'] == 'progress'){ ?>selected=""<?php }?>>progress</option><?php }?>
+                                <?php if ($data['tiket']['status'] == 'new' or $data['tiket']['status'] == 'open' or $data['tiket']['status'] == 'expired'){ ?> <option class="label-accent-open text-warning" value="3" <?php if($data['tiket']['status'] == 'open'){ ?>selected=""<?php }?>>open</option><?php }?>
+                                <?php if ($data['toDel'] == 1 or $data['tiket']['status'] == 'closed'){?><option class="label-accent-closed text-warning" value="4" <?php if($data['tiket']['status'] == 'closed'){ ?>selected=""<?php }?>>closed</option><?php }?>
+                                <?php if ($data['tiket']['status'] == 'approved'){?><option class="label-accent-approved text-warning" value="5" <?php if($data['tiket']['status'] == 'approved'){ ?>selected=""<?php }?>>approved</option><?php }?>
+                                <?php if ($data['tiket']['status'] == 'closed' or $data['tiket']['status'] == 'expired' or $data['tiket']['status'] == 'reopen'){?><option class="label-accent-reopen text-warning" value="6" <?php if($data['tiket']['status'] == 'reopen'){ ?>selected=""<?php }?>>reopen</option><?php }?>
+                                <?php if ($data['tiket']['status'] == 'expired'){?><option class="label-accent-expired text-warning" value="7" <?php if($data['tiket']['status'] == 'expired'){ ?>selected=""<?php }?>>expired</option><?php }?>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="est_time">EST TIME</label>
+                            <input type="date" id="est_time" name="est_time"  value="<?=substr($data['tiket']['est_time'],0,10) ?>" class="form-control" disabled/>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group  col-md-pull-12">
+                        <label for="content">Зміст</label>
+                        <div class="panel-body bs-example"><?=$data['tiket']['content']?></div>
+                    </div>
+
+                    <?php foreach($data['task'] as $data_task) { ?>
+
+                    <div class="panel-body col-md-12">
+
+                        <div class="panel panel-filled panel-c-warning" style="margin-bottom: 0px;">
+                            <div class="">
+
+                                <div class="panel-tools">
+                                    <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="/<?=Session::get('role')?>/tikets/deltask/<?=$data_task['task_id']?>/<?=$data['tiket']['id']?>" class=""><i class="fa fa-times text-danger"></i></a>
+                                    <a href="/<?=Session::get('role')?>/tikets/edittask/<?=$data_task['task_id']?>" class=""><i class="fa fa-edit text-warning"></i></a>
+                                </div>
+
+                                <?=$data_task['task_title']?>
+
+                            </div>
+
+                            <div class="panel-body">
+                                <?=$data_task['task_content']?>
+                            </div>
+
+                            <div class="panel-footer">
+                                Task id: <i class="c-accent"><?=$data_task['task_id']?></i>
+                                <div class="btn-group pull-right col-md-2">
+                                    <div class="btn-group pull-right">
+                                        <a href="/<?=Session::get('role')?>/tikets/edittask/<?=$data_task['task_id']?>" class="btn btn-default btn-xs"><i class="fa fa-pencil text-info"></i> Edit </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <?php } ?>
+
+
+
+                    <div class="row bs-example panel-body">
+
+                        <!--
+                                                    <div class="form-group col-md-4">
+                                                        <label for="extractor">Виконавець</label>
+                                                        <select name="extractor" class="select2_demo_2 form-control"">
+                                                        <option value="" >Оберіть виконавця...</option>
+                                                        <?php foreach($data['users'] as $users_data) { ?>
+                                                        <option value="<?=$users_data['id']?>"><?=$users_data['login'] ?></option>
+                                                        <?php } ?>
+                                                        </select>
+                                                    </div>
+                        -->
+
+                        <div class="btn-group col-md-4">
+
+                            <div class="list-group text-center">
+                                <label for="visible">Visible</label>
+                                <input type="checkbox" name="visible" id="visible" <?php if ($data['tiket']['visible'] ) { ?>checked="checked"<?php } ?> disabled />
+                            </div>
+
+                            <!--                            <div class="btn-group pull-left panel-body text-center">
+                                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Виконавець <span class="caret"></span></button>
+                                                            <ul class="dropdown-menu">
+                                                                <?php foreach($data['users'] as $users_data) { ?>
+                                                                <li><a href="/<?=Session::get('role')?>/tikets/addext/<?=$users_data['id']?>/<?=$data['tiket']['id']?>"><?=$users_data['login'] ?></a></li>
+                                                                <?php } ?>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">Separated link</a></li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <br>
+                                                        -->
+                            <div class="">
+                                <label for="users[]">Відповідальні:</label>
+                                <select name="users[]" class="select2_demo_3 form-control" multiple="multiple" style="width: 100%" disabled>
+
+                                    <?php  foreach($data['users'] as $users_data) {
+                                            ?>
+                                    <option name="users[]" value="<?=$users_data['id']?>" <?php foreach($data['users_dep'] as $users_dep){ if($users_data['id'] == $users_dep['uid']){ echo 'selected=""';}else{}?><?php } ?> > <?=$users_data['shortName']?>
+                                    <?php } ?> <?php //} ?>
+                                </select>
+                            </div>
+                            <br>
+
+                            <?php // var_dump($data['users']);?>
+
+                        </div>
+
+
+
+
+
+
+                        <div class="btn-group pull-right panel-body">
+                            <a href="#" class="btn-xs" ><h3><i class="fa fa-plus-square-o fa-border text-info"></i> </h3></a>
+                        </div>
+
+                    </div>
+
+<?php if($data['allChildT']) {?>
+                    <div class="col-md-12">
+
+                        <div class="panel">
+
+                            <div class="panel-body">
+                                <h4>Від яких задач залежить</h4>
+
+                                <p class="small">
+                                    Тут приведені тікети, для яких цей тікет головний.Поки всі тікети в табличці не будуть мати статус <span class="label label-accent-closed">closed</span> цей тікет не можна буде закрити.
+                                </p>
+
+
+
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+
+                                        <th width="5%">#ID</th>
+                                        <th>Назва тікету</th>
+                                        <th width="15%">Створив</th>
+                                        <th width="10%">Статус</th>
+                                        <th width="10%">Пріорітет</th>
+                                        <th width="10%">Дата виконання</th>
+                                        <th width="10%" >Дія</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($data['allChildT'] as $cTik){ ?>
+                                    <tr>
+                                        <td>#<?=$cTik['id']?></td>
+                                        <td>
+                                            <?=$cTik['title']?>
+                                        </td>
+                                        <td><?=$cTik['shortName']?></td>
+                                        <td><span class="label label-accent-<?=$cTik['status']?> <?=$cTik['status']?>"><?=$cTik['status']?></span></td>
+                                        <td><span class="label label-accent-<?=$cTik['priority']?> <?=$cTik['priority']?>"><?=$cTik['priority']?></span></td>
+                                        <td><?=$cTik['est_time']?></td>
+                                        <td class="text-right">
+                                            <?php if ($cTik['uid'] == Session::get('id')){ ?>
+                                            <a href="/<?=Session::get('role')?>/tikets/edit/<?=$cTik['id']?>"> <i class="fa fa-edit"> </i> </a>&nbsp
+                                            <?php } ?>
+                                            <a href="/<?=Session::get('role')?>/tikets/view/<?=$cTik['id']?>"> <i class="fa pe-7s-look text-info"> </i> </a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+<?php } ?>
+
+                    <div class="btn-group pull-right panel-body">
+                        <a class="btn btn-info" href="/<?=Session::get('role')?>/tikets">Назад</a>
+                        <input type="submit" class="btn btn-success" value="Сохранить" />
+                    </div>
+
+                </form>
+
+
+                <?php //print_r($data['task'])?>
+
+                <?php //print_r($data['tiket'].'tiket')?>
+
+                <?php //print_r($data)?>
+
+            </div>
+        </div>
+    </div>
+    <? //}?>
+
+
+
+    <div class="btn-group col-md-4">
+        <div class="panel-body ">
+            <?php //print_r($data['comments'])?>
+
+            <?php foreach($data['comments'] as $com) { ?>
+            <div class="btn-group ">
+                <div><code><?=$com['uid']?> ==> <?=$com['comment']?> </code><br></div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <?php foreach($data['comments'] as $com) { ?>
+        <div class="panel panel-filled">
+            <div class="panel-body">
+                <div class="btn-group pull-right m-b-md">
+                    <button class="btn btn-default btn-xs">Show</button>
+                    <button class="btn btn-default btn-xs">Messages</button>
+                </div>
+
+                <img alt="image" class="img-rounded image-lg" src="/img/0.jpg">
+                <h5 class="m-b-none"><a href=""> Commentator name id: <?=$com['uid']?> </a></h5>
+
+                <div class="m-b-xs c-white small">Optoins of commentator aoc: <i class="text-danger"><?=$com['aoc']?></i></div>
+                <p>
+                    <?=$com['comment']?>
+                </p>
+                <small><i class="fa fa-clock-o"></i> Last active in: <i class="c-accent"><?=$com['ct']?></i></small>
+            </div>
+
+        </div>
+
+        <?php } ?>
+    </div>
+
+
+    <div class=main>
+        <img src=images/comentator.jpg>
+        <div class=block_name>
+            <span class=name></span>
+            <span class=date></span>
+        </div>
+        <div class=coment>
+            <div></div>
+        </div>
+    </div>
+

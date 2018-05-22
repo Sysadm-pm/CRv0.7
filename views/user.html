@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>CR+ system</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+     <!--Gritter -->
+
+    <?php if(App::getRouter()->getController() == 'profile' and App::getRouter()->getAction() == 'edit'){ ?>
+    <link rel="stylesheet" href="/css/crop-select-js.min.css">
+    <?php } ?>
+
+	
+	<link href="/css/plugins/select2/select2.min.css" rel="stylesheet">
+	
+	<link href="/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+	
+	<link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <!--<link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">-->
+	
+	<link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+	
+	<link href="/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+	
+	
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span>
+                            <a href="/<?=Session::get('role')?>/profile/edit"><img alt="image" class="img-circle img-md" src="<?=Session::get('avatar')?>" /></a>
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs"> <strong class="font-bold"><?=Session::get('fname')?> <?=Session::get('lname')?></strong></span>
+                                    <span class="text-muted text-xs block"><?=Session::get('role')?> <b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="/<?=Session::get('role')?>/profile/edit">Profile</a></li>
+                                <!--<li><a href="#">Contacts</a></li>
+                                <li><a href="#">Mailbox</a></li>-->
+                                <li class="divider"></li>
+                                <li><a href="/<?=Session::get('role')?>/profile/logout/">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            CR+
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a href="/<?=Session::get('role')?>/tikets/"><i class="fa fa-th-large"></i> <span class="nav-label">Tikets</span> </a>
+                        
+                    </li>
+                    <!--
+                    <li>
+                        <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">Mailbox </span><span class="label label-warning pull-right">16/24</span></a>
+                        
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrics</span>  </a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">Widgets</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Forms</span></a>
+
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">App Views</span>  <span class="pull-right label label-primary">SPECIAL</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span><span class="fa arrow"></span></a>
+                       
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-globe"></i> <span class="nav-label">Miscellaneous</span><span class="label label-info pull-right">NEW</span></a>
+                       
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">UI Elements</span><span class="fa arrow"></span></a>
+                       
+                    </li>
+
+                    <li>
+                        <a href="grid_options.html"><i class="fa fa-laptop"></i> <span class="nav-label">Grid options</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa arrow"></span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">E-commerce</span><span class="fa arrow"></span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Gallery</span><span class="fa arrow"></span></a>
+                      
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Menu Levels </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="#" id="damian">Third Level <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li><a href="#">Second Level Item</a></li>
+                            <li>
+                                <a href="#">Second Level Item</a></li>
+                            <li>
+                                <a href="#">Second Level Item</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-magic"></i> <span class="nav-label">CSS Animations </span><span class="label label-info pull-right">62</span></a>
+                    </li>
+                    <li class="landing_link">
+                        <a target="_blank" href="#"><i class="fa fa-star"></i> <span class="nav-label">Landing Page</span> <span class="label label-warning pull-right">NEW</span></a>
+                    </li>
+                    <li class="special_link">
+                        <a href="#"><i class="fa fa-database"></i> <span class="nav-label">Package</span></a>
+                    </li>
+                </ul>-->
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Вітаємо в системі CR+</span>
+                </li>
+               <!--
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img/a7.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <small class="pull-right">46h ago</small>
+                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img/a4.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="pull-right text-navy">5h ago</small>
+                                    <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img/profile.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="pull-right">23h ago</small>
+                                    <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                    <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="mailbox.html">
+                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="profile.html">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                -->
+
+                <li>
+                    <a href="/<?=Session::get('role')?>/profile/logout/">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+               <!--
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+                -->
+            </ul>
+
+        </nav>
+		
+	   <section class="content">
+
+
+
+
+
+            <!-- Content PHP-->
+         
+
+            <?=$data['content']?>
+
+            <!-- Content PHP-->
+           
+    </section>
+    <!-- End main content-->	
+		
+		
+
+    
+        <div class="small-chat-box fadeInRight animated">
+
+            <div class="heading" draggable="true">
+                <small class="chat-date pull-right">
+                    02.19.2015
+                </small>
+                Small chat
+            </div>
+
+            <div class="content">
+
+                <div class="left">
+                    <div class="author-name">
+                        Monica Jackson <small class="chat-date">
+                        10:02 am
+                    </small>
+                    </div>
+                    <div class="chat-message active">
+                        Lorem Ipsum is simply dummy text input.
+                    </div>
+
+                </div>
+                <div class="right">
+                    <div class="author-name">
+                        Mick Smith
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        Lorem Ipsum is simpl.
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Alice Novak
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        Check this stock char.
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="author-name">
+                        Anna Lamson
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        The standard chunk of Lorem Ipsum
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Mick Lane
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        I belive that. Lorem Ipsum is simply dummy text.
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-chat">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn"> <button
+                        class="btn btn-primary" type="button">Send
+                </button> </span></div>
+            </div>
+
+        </div>
+        <div id="small-chat">
+
+            <span class="badge badge-warning pull-right">5</span>
+            <a class="open-small-chat">
+                <i class="fa fa-comments"></i>
+
+            </a>
+        </div>
+        
+
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js2/jquery-3.1.1.min.js"></script>
+    <script src="/js2/bootstrap.min.js"></script>
+    <script src="/js2/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Flot -->
+    <script src="/js2/plugins/flot/jquery.flot.js"></script>
+    <script src="/js2/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/js2/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="/js2/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="/js2/plugins/flot/jquery.flot.pie.js"></script>
+	<script src="/js2/plugins/flot/jquery.flot.symbol.js"></script>
+    <script src="/js2/plugins/flot/curvedLines.js"></script>
+	
+    <!-- Peity -->
+    <script src="/js2/plugins/peity/jquery.peity.min.js"></script>
+    <script src="/js2/demo/peity-demo.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js2/inspinia.js"></script>
+    <script src="/js2/plugins/pace/pace.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="/js2/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- GITTER -->
+    <script src="/js2/plugins/gritter/jquery.gritter.min.js"></script>
+
+    <!-- Sparkline -->
+    <script src="/js2/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Sparkline demo data  -->
+    <script src="/js2/demo/sparkline-demo.js"></script>
+
+    <!-- ChartJS-->
+    <script src="/js2/plugins/chartJs/Chart.min.js"></script>
+
+    <!-- Toastr -->
+    <script src="/js2/plugins/toastr/toastr.min.js"></script>
+	
+	<!-- Select2 -->
+    <script src="/js2/plugins/select2/select2.full.min.js"></script>
+	
+	<!-- Data picker-->
+   <script src="/js2/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+   <!-- SUMMERNOTE -->
+    <script src="/js2/plugins/summernote/summernote.min.js"></script>
+
+	<!-- DATA TABLE -->
+	<script src="/js2/plugins/dataTables/datatables.min.js"></script>
+
+<script>
+
+$( function() {
+    $( 'tr' ).tooltip({
+	classes: {
+    "ui-tooltip": "btn btn-xs btn-info"
+  }
+	});
+  } );
+ 
+ $(".select2_demo_1").select2();
+ $(".select2_demo_2").select2();
+ $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+
+
+
+
+
+
+			$('#est_time').datepicker({
+                dateFormat: 'dd/mm/yy',
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+
+
+            });
+
+
+
+ $(document).ready(function(){
+
+
+            $('#mainTableTiket').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+			
+			$(document).ready(function(){
+
+				$('.summernote').summernote({
+				height:300,
+				//placeholder:'������ ������� �������� �'
+				});
+
+			});
+			
+</script>
+
+        <?php if(App::getRouter()->getController() == 'profile' and App::getRouter()->getAction() == 'edit'){ ?>
+
+        <!-- Input MASK -->
+        <script src="/js/dist/inputmask/inputmask.js"></script>
+        <script src="/js/dist/inputmask/inputmask.date.extensions.js"></script>
+        <script src="/js/dist/inputmask/jquery.inputmask.js"></script>
+
+
+
+
+
+        <script>
+            $(document).ready(function(){
+                $(":input").inputmask();
+                or
+                Inputmask().mask(document.querySelectorAll("input"));
+            });
+        </script>
+
+        <?php } ?>
+
+        <?php if(App::getRouter()->getController() == 'projects' and App::getRouter()->getAction() == 'view'){ ?>
+
+        <!-- Input MASK -->
+
+
+        <script>
+            $(document).ready(function () {
+
+
+                var data = [
+                    {
+                        data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
+                    }
+                ];
+
+                var chartUsersOptions2 = {
+                    series: {
+                        splines: {
+                            show: true,
+                            tension: 0.4,
+                            lineWidth: 2,
+                            fill: false
+                        },
+                    },
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        borderWidth: 0
+                    }
+                };
+
+                $.plot($("#flotProfile"), data, chartUsersOptions2);
+
+            });
+        </script>
+
+        <?php } ?>
+
+        <?php if(App::getRouter()->getController() == 'profile' and App::getRouter()->getAction() == 'edit'){ ?>
+
+        <script src="/js/crop-select-js.min.js"></script>
+
+
+        <script>
+            $(function () {
+
+                // Initialise CropSelect
+                //$('#crop-select').CropSelectJs();
+
+                // Handle file select change
+                $('#file-input').on('change', function() {
+
+
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#crop-select').CropSelectJs({
+                                imageSrc: e.target.result,
+                                selectionMove: function (data) {
+                                    $('#skyle-x').attr({value:data.xScaledToImage});
+                                    $('#skyle-y').attr({value:data.yScaledToImage});
+                                },
+                                selectionResize: function(data) {
+                                    $('#data-w').attr({value:data.widthScaledToImage});
+                                    $('#data-h').attr({value:data.heightScaledToImage});
+                                }
+                            });
+                            $('#crop-select').CropSelectJs('setSelectionAspectRatio', 1 / 1);
+                            // $('#crop-select').CropSelectJs({selectionMove: function (data) {
+                            //         $('#scaled-x').html(data.xScaledToImage);
+                            //         $('#123').attr({value: data.yScaledToImage});
+                            //     }});
+
+
+                        };
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+
+
+            });
+        </script>
+        <?php } ?>
+
+</body>
+</html>

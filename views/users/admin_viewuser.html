@@ -1,0 +1,29 @@
+<h3>Users</h3><br/>
+<table class="table table-hover table-striped" style="">
+    <thead>
+    <tr>
+        <td><b>ID </b></td>
+        <td><b>LOGIN </b></td>
+        <td><b>EMAIL </b></td>
+        <td><b>ROLE </b></td>
+        <td><b>MANAGER ID </b></td>
+        <td><b>CREATE TIME</b></td>
+        <td><b>IS ACTIVE</b></td>
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td><b><?=$data['users']['id']?></b></td>
+        <td><b><?=$data['users']['login']?></b></td>
+        <td><b><?=$data['users']['email'] ?></b></td>
+        <td><b><?=$data['users']['role'] ?></b></td>
+        <td><b><?=$data['users']['manager_id'] ?></b></td>
+        <td><b><?=$data['users']['cr_time'] ?></b></td>
+        <td><b><?=$data['users']['is_active'] ?></b></td>
+    </tr>
+    </tbody>
+</table>
+</br>
+<a class="btn btn-w-sm btn-primary" href="/admin/users/view">Back</a>

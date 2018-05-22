@@ -1,0 +1,32 @@
+<h3>Users</h3><br/>
+<table class="table table-hover table-striped" style="">
+    <thead>
+    <tr>
+        <td><b>ID </b></td>
+        <td><b>TITLE </b></td>
+        <td><b>STATUS </b></td>
+        <td><b>PRIORITY </b></td>
+        <td><b>CREATE TIME</b></td>
+        <td><b>ESTIMATE TIME</b></td>
+        <td><b>CREATOR ID</b></td>
+        <td><b>CONTENT</b></td>
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td><b><?=$data['tiket']['id'] ?></b></td>
+        <td><b><?=$data['tiket']['title'] ?></b></td>
+        <td><b><?=$data['tiket']['status'] ?></b></td>
+        <td><b><?=$data['tiket']['priority'] ?></b></td>
+        <td><b><?=$data['tiket']['cr_time'] ?></b></td>
+        <td><b><?=$data['tiket']['est_time'] ?></b></td>
+        <td><b><?=$data['tiket']['creator_id'] ?></b></td>
+        <td><b><?=$data['tiket']['content'] ?></b></td>
+    </tr>
+    </tbody>
+</table>
+</br>
+<a class="btn btn-w-sm btn-primary" href="/<?=Session::get('role')?>/tikets/">Back</a>
+<?php print_r($data) ?>

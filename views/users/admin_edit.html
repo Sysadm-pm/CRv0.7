@@ -1,0 +1,69 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="view-header">
+            <div class="pull-right text-right" style="line-height: 14px">
+                <small><span class="c-accent">Базові данні:</span><br>USER ID:  <span class="c-white"><?=$data['users']['id']?></span><br>CREATE TIME: <span class="c-white"><?=$data['users']['cr_time']?></span> </small>
+            </div>
+            <div class="header-icon">
+                <i class="pe page-header-icon pe-7s-note2"></i>
+            </div>
+            <div class="header-title">
+                <h3>Форма редагування параметрів користувача: "<span class="c-accent"><?=$data['users']['login']?></span>"</h3>
+                <small>
+                    Форма для внесення змін у параметри користувача.
+                </small>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-filled">
+            <div class="panel-body">
+                    <form method="post" action="">
+                        <input type="hidden" name="id" value="<?=$data['users']['id']?>"/>
+                         <div class="form-group">
+                            <label for="login">LOGIN</label>
+                            <input type="text" id="login" name="login" value="<?=$data['users']['login']?>" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">EMAIL</label>
+                            <input type="text" id="email" name="email" value="<?=$data['users']['email']?>" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">ROLE</label>
+                            <select name="role" class="select2-container form-control">
+                                <option>
+                                <option value="4" selected="">none</option>
+                                <option value="2">user</option>
+                                <option value="3">owner</option>
+                                <option value="1">admin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="manager_id">MANAGER ID</label>
+                            <select name="manager_id" class="select2-container form-control"">
+                            <option>
+                                <?php foreach($data['users_all'] as $users_data) { ?>
+                                <option value="<?=$users_data['id']?>" <?php if($users_data['login'] == 'sysadm'){ ?>selected=""<?php } ?> ><?=$users_data['login'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">PASSWORD</label>
+                            <input name="password" id="password" placeholder="******" class="form-control"/>
+                        </div>
+                        <div class="checkbox checkbox-success">
+                            <input class="styled" type="checkbox" name="is_active" id="is_active"<?php if ($data['users']['is_active'] ) { ?> checked="checked" <?php } ?> />
+                            <label for="is_active">ACTIVE</label>
+                        </div>
+                        <a class="btn btn-w-sm btn-primary" href="/admin/users/view/">Back</a>
+                        <input type="submit" class="btn btn-success" />
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

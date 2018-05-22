@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-89">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!--    Page title -->
+    <title><?=Config::get('site_name')?></title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="/css/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/animate.css/animate.css">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/toastr/toastr.min.css">
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="/css/pe-icons/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="/css/pe-icons/helper.css">
+    <link rel="stylesheet" href="/css/stroke-icons/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+wqweqwe
+<body class="blank">
+
+<!-- Wrapper-->
+
+    <!-- End navigation-->
+
+    <!-- Main content-->
+    <section class="content">
+
+        <!-- Content PHP-->
+
+        <?=$data['content']?>
+
+        <!-- Content PHP-->
+
+
+    </section>
+    <!-- End main content-->
+
+
+<!-- End wrapper-->
+
+<!-- Vendor scripts-->
+<script src="/js/pacejs/pace.min.js"></script>
+<script src="/js/jquery/dist/jquery.min.js"></script>
+<script src="/js/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/toastr/toastr.min.js"></script>
+<script src="/js/sparkline/index.js"></script>
+<script src="/js/flot/jquery.flot.min.js"></script>
+<script src="/js/flot/jquery.flot.resize.min.js"></script>
+<script src="/js/flot/jquery.flot.spline.js"></script>
+
+<!-- App scripts -->
+<script src="/js/scripts/lux.js"></script>
+<script src="/js/admin.js"></script>
+
+
+
+<?php //if(App::getRouter()->getController() == 'login' and App::getRouter()->getAction() == 'add'){ ?>
+
+<!-- Input MASK -->
+<script src="/js/dist/inputmask/inputmask.js"></script>
+<script src="/js/dist/inputmask/inputmask.date.extensions.js"></script>
+<script src="/js/dist/inputmask/jquery.inputmask.js"></script>
+
+<script>
+    $(document).ready(function(){
+        alert(Hello);
+        $(":input").inputmask();
+        or
+        Inputmask().mask(document.querySelectorAll("input"));
+    });
+</script>
+
+<?php } ?>
+
+
+</body>
+
+</html>
